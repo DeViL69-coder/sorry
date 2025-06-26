@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I'm Sorry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .slideshow-background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+    }
+
+    .slideshow-background img {
+      position: absolute;
+      max-width: 100%;
+      max-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      z-index: -1;
+    }
+
+    .slideshow-background img.active {
+      opacity: 1;
+    }
+
+    .overlay {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      padding-top: 80px;
+      height: 100vh;
+    }
+
+    .overlay::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+      animation: pulse 2s infinite;
+    }
+
+    p {
+      font-size: 1.3em;
+      margin: 20px;
+    }
+
+    .gift-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .gift-btn:hover {
+      background-color: #ff85c1;
+      transform: scale(1.05);
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      animation: float 8s linear infinite;
+      opacity: 0.8;
+    }
+
+    .heart img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Fullscreen Background Slideshow -->
+  <div class="slideshow-background">
+    <img src="photo1.png" class="active">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <!-- Replace with real images -->
+  </div>
+
+  <!-- Floating Hearts -->
+  <div class="hearts"></div>
+
+  <!-- Overlay Message -->
+  <div class="overlay">
+    <h1>I'm Sorry 💔</h1>
+    <p>Sorry na Payal, please ekda chance de... nahi tar kadhi tasa nahi vagnar, please!</p>
+    <p>I love you Payal 💖</p>
+    <button class="gift-btn" onclick="showGift()">🎁 Click for something</button>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Slideshow logic
+    const slides = document.querySelectorAll('.slideshow-background img');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000);
+
+    // Floating hearts
+    const heartImageURL = 'https://cdn-icons-png.flaticon.com/512/833/833472.png';
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      const img = document.createElement('img');
+      img.src = heartImageURL;
+      heart.appendChild(img);
+      document.querySelector('.hearts').appendChild(heart);
+    }
+
+    // Gift and apology loop
+    function showGift() {
+      let accepted = false;
+      while (!accepted) {
+        const response = confirm("Have you accepted the apology? Click Yes or No.");
+        if (response) {
+          alert("Thank you! I love you ❤️");
+          accepted = true;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
